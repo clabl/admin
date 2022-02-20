@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>CHEMLAB Admin</title>
+        <meta name="author" content="name" />
+        <meta name="description" content="description here" />
+        <meta name="keywords" content="keywords,here" />
+
+        <script src="./tailwind.js"></script>
+        <link
+            href="https://afeld.github.io/emoji-css/emoji.css"
+            rel="stylesheet"
+        />
+        <!--Totally optional :) -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"
+            integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis="
+            crossorigin="anonymous"
+        ></script>
+        <script
+            type="module"
+            crossorigin
+            src="./assets/index.85e2869a.js"
+        ></script>
+        <link rel="modulepreload" href="./assets/vendor.58142632.js" />
+        <link rel="stylesheet" href="./assets/index.4570621f.css" />
+    </head>
+
+    <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
+        <!--Nav-->
+        <nav
+            class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0"
+        >
+            <div class="flex flex-wrap items-center">
+                <div
+                    class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white"
+                >
+                    <a href="#">
+                        <span class="text-xl pl-2"><b>CHEMLAB</b></span>
+                    </a>
+                </div>
+
+                <div
+                    class="flex flex-1 md:w-1/3 justify-center md:justify-start text-white px-2"
+                >
+                    <span class="relative w-full">
+                        <input
+                            type="search"
+                            placeholder="Status"
+                            id="statusBar"
+                            class="w-full bg-gray-900 text-white transition border border-transparent focus:outline-none focus:border-gray-400 rounded py-3 px-2 pl-10 appearance-none leading-normal"
+                            readonly
+                        />
+                    </span>
+                </div>
+
+                <div
+                    class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end"
+                >
+                    <ul
+                        class="list-reset flex justify-between flex-1 md:flex-none items-center"
+                    >
+                        <li class="flex-1 md:flex-none md:mr-3">
+                            <div class="relative inline-block">
+                                <button
+                                    onclick="toggleDD('myDropdown')"
+                                    class="drop-button text-white focus:outline-none"
+                                >
+                                    <span class="pr-2"
+                                        ><i class="em em-robot_face"></i
+                                    ></span>
+                                    Hi, User
+                                    <svg
+                                        class="h-3 fill-current inline"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                    >
+                                        <path
+                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                        />
+                                    </svg>
+                                </button>
+                                <div
+                                    id="myDropdown"
+                                    class="dropdownlist absolute bg-gray-800 text-white right-0 mt-3 p-3 overflow-auto z-30 invisible"
+                                >
+                                    <input
+                                        type="text"
+                                        class="drop-search p-2 text-gray-600"
+                                        placeholder="Search.."
+                                        id="myInput"
+                                        onkeyup="filterDD('myDropdown','myInput')"
+                                    />
+                                    <a
+                                        href="#"
+                                        class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"
+                                        ><i class="fa fa-user fa-fw"></i>
+                                        Profile</a
+                                    >
+                                    <a
+                                        href="#"
+                                        class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"
+                                        ><i class="fa fa-cog fa-fw"></i>
+                                        Settings</a
+                                    >
+                                    <div class="border border-gray-800"></div>
+                                    <a
+                                        href="#"
+                                        id="SO2"
+                                        class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"
+                                        ><i
+                                            class="fas fa-sign-out-alt fa-fw"
+                                        ></i>
+                                        Sign Out</a
+                                    >
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="flex flex-col md:flex-row w-full">
+            <div
+                class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-1/12 md:w-48"
+            >
+                <div
+                    class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between"
+                >
+                    <!-- Side Nav -->
+                    <ul
+                        class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left"
+                    >
+                        <li class="mr-3 flex-1">
+                            <a
+                                id="T1"
+                                class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500"
+                            >
+                                <i class="fas fa-chart-bar pr-0 md:pr-3"></i
+                                ><span
+                                    class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block"
+                                    >Dashboard</span
+                                >
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a
+                                id="T2"
+                                class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500"
+                            >
+                                <i class="fas fa-user pr-0 md:pr-3"></i
+                                ><span
+                                    class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block"
+                                    >Clients</span
+                                >
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a
+                                id="T3"
+                                class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500"
+                            >
+                                <i class="fas fa-box pr-0 md:pr-3"></i
+                                ><span
+                                    class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block"
+                                    >Delivery</span
+                                >
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a
+                                id="T4"
+                                class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500"
+                            >
+                                <i
+                                    class="fas fa-file-chart-line pr-0 md:pr-3"
+                                ></i
+                                ><span
+                                    class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block"
+                                    >Reports</span
+                                >
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a
+                                id="T5"
+                                class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500"
+                            >
+                                <i
+                                    class="fas fa-file-chart-pie pr-0 md:pr-3"
+                                ></i
+                                ><span
+                                    class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block"
+                                    >Report Activities</span
+                                >
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a
+                                id="T6"
+                                class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500"
+                            >
+                                <i class="fa fa-chart-network pr-0 md:pr-3"></i
+                                ><span
+                                    class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block"
+                                    >Standards</span
+                                >
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a
+                                id="T7"
+                                class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500"
+                            >
+                                <i class="fas fa-scroll pr-0 md:pr-3"></i
+                                ><span
+                                    class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block"
+                                    >Catalogue</span
+                                >
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a
+                                id="SO"
+                                class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500"
+                            >
+                                <i class="fa fa-sign-out-alt pr-0 md:pr-3"></i
+                                ><span
+                                    class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-400 block md:inline-block"
+                                    >Sign Out</span
+                                >
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 w-11/12 md:pb-5"
+                style="width: 80vw"
+            >
+                <div id="app"></div>
+            </div>
+        </div>
+
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.3.5/signature_pad.min.js"
+            integrity="sha512-kw/nRM/BMR2XGArXnOoxKOO5VBHLdITAW00aG8qK4zBzcLVZ4nzg7/oYCaoiwc8U9zrnsO9UHqpyljJ8+iqYiQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script>
+            let initializeSigCanvas = () => {
+                let canvas = document.getElementById("signature-pad");
+
+                let signaturePad = new SignaturePad(canvas, {
+                    backgroundColor: "rgb(250,250,250)",
+                    penColor: "rgb(0, 0, 0)",
+                });
+
+                document
+                    .getElementById("clearsig")
+                    .addEventListener("click", function () {
+                        signaturePad.clear();
+                    });
+            };
+
+            let initializeSigCanvasRO = () => {
+                let canvas = document.getElementById("signature-pad-RO");
+
+                let signaturePad = new SignaturePad(canvas, {
+                    backgroundColor: "rgb(250,250,250)",
+                    penColor: "rgb(0, 0, 0)",
+                });
+
+                document
+                    .getElementById("clearsig-RO")
+                    .addEventListener("click", function () {
+                        signaturePad.clear();
+                    });
+            };
+
+            let initializeSigCanvasBO = () => {
+                let canvas = document.getElementById("signature-pad-BO");
+
+                let signaturePad = new SignaturePad(canvas, {
+                    backgroundColor: "rgb(250,250,250)",
+                    penColor: "rgb(0, 0, 0)",
+                });
+
+                document
+                    .getElementById("clearsig-BO")
+                    .addEventListener("click", function () {
+                        signaturePad.clear();
+                    });
+            };
+
+            let initializeSigCanvasCT = () => {
+                let canvas = document.getElementById("signature-pad-CT");
+
+                let signaturePad = new SignaturePad(canvas, {
+                    backgroundColor: "rgb(250,250,250)",
+                    penColor: "rgb(0, 0, 0)",
+                });
+
+                document
+                    .getElementById("clearsig-CT")
+                    .addEventListener("click", function () {
+                        signaturePad.clear();
+                    });
+            };
+
+            let initializeSigCanvasCW = () => {
+                let canvas = document.getElementById("signature-pad-CW");
+
+                let signaturePad = new SignaturePad(canvas, {
+                    backgroundColor: "rgb(250,250,250)",
+                    penColor: "rgb(0, 0, 0)",
+                });
+
+                document
+                    .getElementById("clearsig-CW")
+                    .addEventListener("click", function () {
+                        signaturePad.clear();
+                    });
+            };
+
+            let initializeSigCanvasSP = () => {
+                let canvas = document.getElementById("signature-pad-SP");
+
+                let signaturePad = new SignaturePad(canvas, {
+                    backgroundColor: "rgb(250,250,250)",
+                    penColor: "rgb(0, 0, 0)",
+                });
+
+                document
+                    .getElementById("clearsig-SP")
+                    .addEventListener("click", function () {
+                        signaturePad.clear();
+                    });
+            };
+
+            let initializeSigCanvasSTP = () => {
+                let canvas = document.getElementById("signature-pad-STP");
+
+                let signaturePad = new SignaturePad(canvas, {
+                    backgroundColor: "rgb(250,250,250)",
+                    penColor: "rgb(0, 0, 0)",
+                });
+
+                document
+                    .getElementById("clearsig-STP")
+                    .addEventListener("click", function () {
+                        signaturePad.clear();
+                    });
+            };
+        </script>
+        <script>
+            /*Toggle dropdown list*/
+            function toggleDD(myDropMenu) {
+                document
+                    .getElementById(myDropMenu)
+                    .classList.toggle("invisible");
+            }
+            /*Filter dropdown options*/
+            function filterDD(myDropMenu, myDropMenuSearch) {
+                var input, filter, ul, li, a, i;
+                input = document.getElementById(myDropMenuSearch);
+                filter = input.value.toUpperCase();
+                div = document.getElementById(myDropMenu);
+                a = div.getElementsByTagName("a");
+                for (i = 0; i < a.length; i++) {
+                    if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        a[i].style.display = "";
+                    } else {
+                        a[i].style.display = "none";
+                    }
+                }
+            }
+            // Close the dropdown menu if the user clicks outside of it
+            window.onclick = function (event) {
+                if (
+                    !event.target.matches(".drop-button") &&
+                    !event.target.matches(".drop-search")
+                ) {
+                    var dropdowns =
+                        document.getElementsByClassName("dropdownlist");
+                    for (var i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (!openDropdown.classList.contains("invisible")) {
+                            openDropdown.classList.add("invisible");
+                        }
+                    }
+                }
+            };
+        </script>
+
+        <script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
+        <script src="https://jsuites.net/v4/jsuites.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://jsuites.net/v4/jsuites.css"
+            type="text/css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://bossanova.uk/jspreadsheet/v4/jexcel.css"
+            type="text/css"
+        />
+    </body>
+</html>
